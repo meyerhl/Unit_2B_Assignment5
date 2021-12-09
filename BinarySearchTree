@@ -1,0 +1,88 @@
+/**Implement a binary search tree and prove it is correct 
+ *by also implementing an in-order search, which should display 
+ *the values in numerical order regardless of the order in which 
+ *they were added.
+ *
+ *
+ *Thank you for help from the following:
+ *https://www.baeldung.com/java-binary-tree
+ *https://www.softwaretestinghelp.com/binary-search-tree-in-java/
+ *https://favtutor.com/blogs/binary-search-tree-java
+ *https://www.youtube.com/watch?v=M6lYob8STMI
+ **/
+ 
+ import java.util.*;
+ 
+ public class BST{   //outer class
+     Node root;
+     int number;
+     
+     public static class Node {    // inner class or nested class
+         
+         int value;
+         Node leftChild, rightChild;
+         
+         public Node(int data) {  //constructor that takes same name as class
+             value = data;
+             leftChild = rightChild = null;
+         }
+     }
+     
+     public BST() {  //constructor takes the same name as class
+         root = null;
+     }
+     
+     public void add(int value) {
+         root = add2(root, value);
+     }
+     
+     public Node add2(Node root, int value) {  //recursive
+         if (root == null) {
+             root = new Node(value);
+             return root;
+         }
+         if (value < root.value) {
+             root.leftChild = add2(root.leftChild, value);
+         }
+         else if (value > root.value) {
+             root.rightChild = add2(root.rightChild, value);
+         }
+         return root;
+     }
+     
+     public void inOrder() {
+         searchInOrder(root);
+     }
+     
+     public void searchInOrder(Node root) {
+         if( root != null) {
+             searchInOrder(root.leftChild);
+             System.out.print(root.value + " ");
+             searchInOrder(root.rightChild);
+         }
+     }
+     
+     public static void main(String[] args) {
+         BST tree = new BST();  //empty tree
+         tree.add(5);
+         tree.add(3);
+         tree.add(7);
+         tree.add(2);
+         tree.add(20);
+         tree.add(15);
+         tree.add(6);
+         tree.add(1);
+         tree.add(19);
+         tree.add(8);
+         tree.add(11);
+         tree.add(4);
+         tree.add(2);
+         tree.add(17);
+         tree.add(18);
+    
+         
+         System.out.print("Printed values using in-order search: \n");
+         tree.inOrder();
+     }
+ }
+ 
